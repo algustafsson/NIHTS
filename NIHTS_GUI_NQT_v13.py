@@ -1,5 +1,5 @@
 """ NIHTS GUI - NIHTS Exposure Control
-    v1.13a: 2018-09-16, ag765@nau.edu, A Gustafsson
+    v1.13: 2018-09-16, ag765@nau.edu, A Gustafsson
     Creating GUI to avoid scripting. Using PyQt5.
     
     All scripts are copy and pasted into their calls. See comments within script.
