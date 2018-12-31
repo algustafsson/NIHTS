@@ -1,32 +1,41 @@
 """ NIHTS GUI - NIHTS Exposure Control
     v1.15: 2018-12-31, ag765@nau.edu, A Gustafsson
-    Creating GUI to avoid scripting. Using PyQt5.
+    
+    --------------
     
     All scripts are copy and pasted into their calls. See comments within script.
     
     ** CURRENT NIHTS VERSION
     Runs with NIHTS Scripts
     
-    To use, enter on the command line in the ipython environment:
+    --------------
+    
+    To use, run the NIHTS startup icon on the XCAM Desktop 
+    or
+    Enter on the command line in the ipython environment:
     run -i NIHTS_GUI.py
     
-    updates:
+    --------------
+    
+    DESIRED UPDATES:
     - Focus script -- if no convergence is found, then reset focus back to start
-    - Don't send nan for any buttons
-    - Reconfigure NIHTS Panel -> add general Nod script
-    - put in checks for sending command 2x
-    - change state of flats button to be ON/OFF
-    
+    - Don't send nan for any buttons (especially focus)
+    - Reconfigure NIHTS Panel 
+        -> add general Nod script
+        -> Finish LMI to NIHTS Mapping
+        -> Add Shutdown Tab to get rid of extra terminal window
+    - Put in checks for sending command 2x
+    - Change state of flats button to be ON/OFF
+    - Fix Log to have appropriate suffix (ex: a, b, c, etc.)
     - Fix scripts to be external
-    
     - Terminal Line Toggles on but not off
-    - write terminal line script section
-    
+    - Write terminal line script section
     - Add save_n feature to ABBA script - currently saving every xcam image
-    - * Add status bar --> needs testing
+    - Add status bar
+    - Set up logging so that it goes in the correct data folder --> logging currently on mac mini desktop
+    - Create separate log of information from terminal window
     
-    - * set up logging so that it goes in the correct data folder --> logging currently on mac mini desktop
-    - create separate log of information from terminal window
+    
     """
 
 import sys
