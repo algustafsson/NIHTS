@@ -1,5 +1,5 @@
 """ NIHTS GUI - NIHTS Exposure Control
-    v1.14: 2018-12-10, ag765@nau.edu, A Gustafsson
+    v1.15: 2018-12-31, ag765@nau.edu, A Gustafsson
     Creating GUI to avoid scripting. Using PyQt5.
     
     All scripts are copy and pasted into their calls. See comments within script.
@@ -3112,7 +3112,7 @@ if __name__ == '__main__':
     #else:
     #    filename = '/Volumes/dctobsdata/nihts/%sa/NIHTS_%sa.log' %(UTday, UTday)
     
-    filename = 'Desktop/Log/NIHTS_%sa.log' % UTday
+    filename = '/Users/xcam/Desktop/Log/NIHTS_%sa.log' % UTday
 
     logging.basicConfig(filename=filename, level=logging.DEBUG, format=FORMAT) # filemode='w' will overwrite instead of append
     logging.info('--- STARTED ---')
