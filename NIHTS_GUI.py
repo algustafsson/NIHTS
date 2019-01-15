@@ -17,6 +17,9 @@
     - put in checks for sending command 2x
     - change state of flats button to be ON/OFF
     
+    - make edits to LMI Mapping Tab -- currently just a mock up version
+    - add shutdown tab to GUI
+    
     - Fix scripts to be external
     
     - Terminal Line Toggles on but not off
