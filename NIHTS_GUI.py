@@ -672,7 +672,7 @@ class NIHTSWidget(QWidget):
         self.tabs.addTab(self.tab4,"4. XCAM")
         self.tabs.addTab(self.tab5,"5. NIHTS")
         self.tabs.addTab(self.tab6,"6. LMI ACQUISITION")
-        self.tabs.addTab(self.tab,7"7. SHUTDOWN")
+        self.tabs.addTab(self.tab7,"7. SHUTDOWN")
 
         ##
         # NIHTS TEST TAB
