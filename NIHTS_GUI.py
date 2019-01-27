@@ -770,7 +770,7 @@ class NIHTSWidget(QWidget):
         grid_t3.addWidget(self.createFocusSetup1(), 2, 1, 1, 4)
         grid_t3.addWidget(self.createFocusSetup2(), 3, 1, 1, 4)
         
-        FocusButton = QPushButton("FOCUS")
+        FocusButton = QPushButton("RUN FOCUS")
         FocusButton.clicked.connect(self.run_NIHTS_Focus)
         grid_t3.addWidget(FocusButton, 4, 1, 1, 2)
         FocusOffset = QLabel('Best Guess Focus')
@@ -827,7 +827,7 @@ class NIHTSWidget(QWidget):
         CoaddsBox.setValue(1)
         CoaddsBox.valueChanged.connect(self.CurrentCoadds)
         
-        XExpButton = QPushButton("XCAM")
+        XExpButton = QPushButton("XCAM GO")
         XExpButton.clicked.connect(self.run_NIHTS_XExp)
         grid_t4.addWidget(XExpButton, 2, 2, 1, 2)
         
@@ -944,13 +944,13 @@ class NIHTSWidget(QWidget):
         grid_t6 = QGridLayout()
         grid_t6.setSpacing(10)
         
-        CurrLMIXPos = QLabel('Current X Pos')
+        CurrLMIXPos = QLabel('Current X Position')
         CurrLMIXPos.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-        CurrLMIYPos = QLabel('Current Y Pos')
+        CurrLMIYPos = QLabel('Current Y Position')
         CurrLMIYPos.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-        DesLMIXPos = QLabel('Desired X Pos')
+        DesLMIXPos = QLabel('Desired X Position')
         DesLMIXPos.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-        DesLMIYPos = QLabel('Desired Y Pos')
+        DesLMIYPos = QLabel('Desired Y Position')
         DesLMIYPos.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
         CurrLMIXPosEdit = QSpinBox(self)
@@ -1020,6 +1020,7 @@ class NIHTSWidget(QWidget):
         ShutdownLabel = QLabel('* Shutdown the NIHTS Camera at the End of your Observing Run *')
         ShutdownLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         ShutdownButton = QPushButton("NIHTS Shutdown")
+        ShutdownButton.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         ShutdownButton.clicked.connect(run_NIHTS_Shutdown)
         CheckBox_Comm = QCheckBox("Command Line")
         CheckBox_Comm.stateChanged.connect(run_toggleCommandLine)
