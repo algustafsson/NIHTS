@@ -1,35 +1,36 @@
 """ NIHTS GUI - NIHTS Exposure Control
-    v1.15: 2018-12-31, ag765@nau.edu, A Gustafsson
-    Creating GUI to avoid scripting. Using PyQt5.
+    v1.16: 2019-01-27, ag765@nau.edu, A Gustafsson
+    Creating NIHTS GUI to avoid scripting. Using PyQt5.
     
     All scripts are copy and pasted into their calls. See comments within script.
     
     ** CURRENT NIHTS VERSION
-    Runs with NIHTS Scripts
+    Runs with NIHTS Scripts in GUI
     
     To use, enter on the command line in the ipython environment:
     run -i NIHTS_GUI.py
     
-    updates:
-    - Focus script -- if no convergence is found, then reset focus back to start
+    UPDATES:
     - Don't send nan for any buttons
     - Reconfigure NIHTS Panel -> add general Nod script
     - put in checks for sending command 2x
-    - change state of flats button to be ON/OFF
-    
-    - make edits to LMI Mapping Tab -- currently just a mock up version
-    - add shutdown tab to GUI
-    
+
     - Fix scripts to be external
     
     - Terminal Line Toggles on but not off
     - write terminal line script section
     
     - Add save_n feature to ABBA script - currently saving every xcam image
-    - * Add status bar --> needs testing
+    - * Add status bar
     
     - * set up logging so that it goes in the correct data folder --> logging currently on mac mini desktop
     - create separate log of information from terminal window
+        
+    NEEDS TESTING:
+        - Focus script
+        - LMI Mapping Tab
+        - NIHTS Shutdown Tab
+    
     """
 
 import sys
@@ -174,7 +175,7 @@ class NIHTS(QMainWindow):
         self.title = 'NIHTS'
         self.left = 0
         self.top = 0
-        self.width = 750
+        self.width = 850
         self.height = 400
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
@@ -479,8 +480,41 @@ class NIHTSWidget(QWidget):
             ##
             #
             ##
+        
+        
+        def run_NIHTS_Shutdown(self):
+            logging.info('NIHTS Shutdown')
+            
+            ##
+            # NIHTS_Shutdown.py
+            ##
+            """ NIHTS Shutdown - Turn off the NIHTS Camera
+                v1.0: 2018-02-08, ag765@nau.edu, A Gustafsson
+    
+                Turn Off Arc Lamps
+                Turn Off XCAM camera
 
+                ** This is the current version!
 
+                To use, enter on the command line:
+                python NIHTS_Shutdown.py
+
+                updates:
+                """
+
+            import subprocess
+
+            subprocess.call("pwrusb setone 3 0", shell=True) #arc lamps off
+            subprocess.call("pwrusb setone 1 0", shell=True) #xcam camera off
+            subprocess.call("pwrusb status", shell=True)
+
+            print('-----NIHTS Shutdown Complete-----')
+            
+            ##
+            #
+            ##
+
+            
         def run_NIHTS_Home(self):
             logging.info('Target is at Home')
             
@@ -626,6 +660,7 @@ class NIHTSWidget(QWidget):
         self.tab4 = QWidget()
         self.tab5 = QWidget()
         self.tab6 = QWidget()
+        self.tab7 = QWidget()
         self.tabs.resize(500,200)
         
         ##
@@ -637,6 +672,7 @@ class NIHTSWidget(QWidget):
         self.tabs.addTab(self.tab4,"4. XCAM")
         self.tabs.addTab(self.tab5,"5. NIHTS")
         self.tabs.addTab(self.tab6,"6. LMI ACQUISITION")
+        self.tabs.addTab(self.tab,7"7. SHUTDOWN")
 
         ##
         # NIHTS TEST TAB
@@ -975,6 +1011,32 @@ class NIHTSWidget(QWidget):
         
         self.tab6.setLayout(grid_t6)
         
+        ##
+        # NIHTS SHUTDOWN TAB
+        ##
+        grid_t7 = QGridLayout()
+        grid_t7.setSpacing(10)
+
+        ShutdownLabel = QLabel('NIHTS Shutdown')
+        ShutdownLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
+        ShutdownLabel2 = QLabel('* Shutdown the NIHTS Camera at the End of your Observing Run *')
+        ShutdownLabel2.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
+        ShutdownButton = QPushButton("Shutdown")
+        ShutdownButton.clicked.connect(run_NIHTS_Shutdown)
+        CheckBox_Comm = QCheckBox("Command Line")
+        CheckBox_Comm.stateChanged.connect(run_toggleCommandLine)
+        
+        ExitButton = QPushButton("Exit")
+        ExitButton.clicked.connect(run_Exit)
+        grid_t7.addWidget(ExitButton, 4, 5, 1, 1)
+        
+        grid_t7.addWidget(ShutdownLabel1, 1, 1, 1, 5)
+        grid_t7.addWidget(ShutdownButton, 2, 3, 1, 1)
+        grid_t7.addWidget(ShutdownLabel2, 3, 1, 1, 5)
+        grid_t7.addWidget(CheckBox_Comm, 5, 1, 1, 1)
+        
+        self.tab7.setLayout(grid_t7)
+        
         
         ##
         # ADD TABS TO WIDGET
@@ -1278,8 +1340,8 @@ class NIHTSWidget(QWidget):
         infoBox.setText("Confirm the Dome Flat Lamps are OFF?")
         infoBox.setWindowTitle("Dome Darks Status")
         infoBox.setStandardButtons(QMessageBox.Yes| QMessageBox.No)
-        infoBox.button(QMessageBox.Yes).setText('OFF')
-        infoBox.button(QMessageBox.No).setText('ON')
+        infoBox.button(QMessageBox.Yes).setText('Lamps OFF')
+        infoBox.button(QMessageBox.No).setText('Lamps ON')
         infoBox.setEscapeButton(QMessageBox.Close)
         result = infoBox.exec_()
         if result == QMessageBox.Yes:
@@ -1404,8 +1466,8 @@ class NIHTSWidget(QWidget):
         infoBox.setText("Confirm the Deveny 6V Dome Flat Lamps are ON?")
         infoBox.setWindowTitle("Dome Flats Status")
         infoBox.setStandardButtons(QMessageBox.Yes| QMessageBox.No)
-        infoBox.button(QMessageBox.Yes).setText('ON')
-        infoBox.button(QMessageBox.No).setText('OFF')
+        infoBox.button(QMessageBox.Yes).setText('Lamps ON')
+        infoBox.button(QMessageBox.No).setText('Lamps OFF')
         infoBox.setEscapeButton(QMessageBox.Close)
         result = infoBox.exec_()
         if result == QMessageBox.Yes:
@@ -1941,14 +2003,13 @@ class NIHTSWidget(QWidget):
             # take focus images
             print('----------------------- \n Beginning Focus Sequence \n ------------------------')
             
-            nom_focus = f_offset-180 #Nominal is 650 (1650) AG 08/12/18
-            tcs.send_focus_microns(nom_focus)
-            print('--- Nominal Focus Value ---', nom_focus)
-            
+            #nom_focus = f_offset-180 #Nominal is 650 (1650) AG 08/12/18
+            #tcs.send_focus_microns(nom_focus)
+            #print('--- Nominal Focus Value ---', nom_focus)
             
             focus_list = []
             for j in range(7):
-                focus = nom_focus+offset+(j-3)*step
+                focus = f_offset+(j-3)*step
                 print('---------------- \n Focus value: %f \n -----------------' % focus)
                 tcs.send_focus_microns(focus)
                 focus_list.append(focus)
@@ -2076,7 +2137,7 @@ class NIHTSWidget(QWidget):
                 focus_values = [val for val in focus_list for _ in (0,1)]
                 
             # Resample focus values
-            focus_new = np.arange(nom_focus+offset+(-3)*step, nom_focus+offset+(3)*step, 0.001)
+            focus_new = np.arange(f_offset+(-3)*step, f_offset+(3)*step, 0.001)
             
             ## polyfit -- short (2nd order)
             fit_coeff_x = np.polyfit(focus_values, FWHM_x, 2, full=True)
@@ -3065,24 +3126,30 @@ class NIHTSWidget(QWidget):
             elif int(CurrentBinning[-1]) == 3:
                 binning = 4
             
-            pixscale = binning*0.12
-            print('Pix Scale: %.2f' %pixscale)
+            pixscale = binning*0.12 #LMI Pixel Scale
+            print('LMI Pix Scale: %.2f' %pixscale)
 
             offset_x = (float(xpos)-float(home_x))*pixscale
             offset_y = (float(ypos)-float(home_y))*pixscale
 
-            print(offset_x)
-            print(offset_y)
-
-            print('Apply the offset %.2f arcsec East and %.2f arcsec South' %(offset_x, offset_y))
+            print(offset_x, 'Offset in Arcsec EAST')
+            print(offset_y, 'Offset in Arcsec SOUTH')
+            
+            #print('Apply the offset %.2f arcsec East and %.2f arcsec South' %(offset_x, offset_y))
             #print('East is positive, South is positive')
+            
+            N_pixscale = 0.326 #XCAM Pixel Scale
+            
+            offset_y_pix = np.divide(offset_x, 0.326) #East is UP on XCAM so x offset on LMI is y offset on XCAM
+            offset_x_pix = np.divide(-offset_y, 0.326) #North is RIGHT on XCAM so y offset on LMI is x offset on XCAM
+
             logging.info('Apply the LMI offset %.2f arcsec East and %.2f arcsec South' %(offset_x, offset_y))
             
             #
             # move target on LMI
             #
             
-            #tcs.move_object_on_xcam(tcs.current_target_pt, tcs.current_target_pt + wx.RealPoint(0,-offset))
+            tcs.move_object_on_xcam(tcs.current_target_pt, tcs.current_target_pt + wx.RealPoint(offset_x_pix,offset_y_pix))
         
             print('-----Move Complete-----')
     
