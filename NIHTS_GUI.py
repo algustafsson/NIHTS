@@ -1017,11 +1017,12 @@ class NIHTSWidget(QWidget):
         grid_t7 = QGridLayout()
         grid_t7.setSpacing(10)
 
-        ShutdownLabel = QLabel('* Shutdown the NIHTS Camera at the End of your Observing Run *')
+        ShutdownLabel = QLabel('Shutdown the NIHTS Camera')
         ShutdownLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         ShutdownButton = QPushButton("NIHTS Shutdown")
-        ShutdownButton.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         ShutdownButton.clicked.connect(run_NIHTS_Shutdown)
+        ExitLabel = QLabel('EXIT to Close the NIHTS GUI')
+        ExitLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
         CheckBox_Comm = QCheckBox("Command Line")
         CheckBox_Comm.stateChanged.connect(run_toggleCommandLine)
         
@@ -1031,6 +1032,7 @@ class NIHTSWidget(QWidget):
         
         grid_t7.addWidget(ShutdownLabel, 1, 1, 1, 5)
         grid_t7.addWidget(ShutdownButton, 2, 3, 1, 1)
+        grid_t7.addWidget(ExitLabel, 3, 1, 1, 5)
         grid_t7.addWidget(CheckBox_Comm, 5, 1, 1, 1)
         
         self.tab7.setLayout(grid_t7)
