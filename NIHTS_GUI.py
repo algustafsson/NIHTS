@@ -1030,7 +1030,7 @@ class NIHTSWidget(QWidget):
         ExitButton.clicked.connect(run_Exit)
         grid_t7.addWidget(ExitButton, 4, 5, 1, 1)
         
-        grid_t7.addWidget(ShutdownLabel1, 1, 1, 1, 5)
+        grid_t7.addWidget(ShutdownLabel, 1, 1, 1, 5)
         grid_t7.addWidget(ShutdownButton, 2, 3, 1, 1)
         grid_t7.addWidget(ShutdownLabel2, 3, 1, 1, 5)
         grid_t7.addWidget(CheckBox_Comm, 5, 1, 1, 1)
