@@ -734,7 +734,7 @@ class NIHTSWidget(QWidget):
         
         ExitButton = QPushButton("Exit")
         ExitButton.clicked.connect(run_Exit)
-        grid_t2.addWidget(ExitButton, 6, 4, 1, 1)
+        #grid_t2.addWidget(ExitButton, 6, 4, 1, 1)
         
         #global Progress_t2
         #Progress_t2 = QProgressBar(self)
@@ -773,7 +773,7 @@ class NIHTSWidget(QWidget):
         FocusButton = QPushButton("FOCUS")
         FocusButton.clicked.connect(self.run_NIHTS_Focus)
         grid_t3.addWidget(FocusButton, 4, 1, 1, 2)
-        FocusOffset = QLabel('Focus Offset')
+        FocusOffset = QLabel('Best Guess Focus')
         FocusOffset.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
         FocusOffsetEdit = QDoubleSpinBox()
         FocusOffsetEdit.setDecimals(0)
@@ -789,7 +789,7 @@ class NIHTSWidget(QWidget):
         
         ExitButton = QPushButton("Exit")
         ExitButton.clicked.connect(run_Exit)
-        grid_t3.addWidget(ExitButton, 5, 4, 1, 1)
+        #grid_t3.addWidget(ExitButton, 5, 4, 1, 1)
         
         #global Progress_t3
         #Progress_t3 = QProgressBar(self)
@@ -881,7 +881,7 @@ class NIHTSWidget(QWidget):
         
         ExitButton = QPushButton("Exit")
         ExitButton.clicked.connect(run_Exit)
-        grid_t4.addWidget(ExitButton, 6, 4, 1, 1)
+        #grid_t4.addWidget(ExitButton, 6, 4, 1, 1)
         
         #global Progress_t4
         #Progress_t4 = QProgressBar(self)
@@ -929,7 +929,7 @@ class NIHTSWidget(QWidget):
         
         ExitButton = QPushButton("Exit")
         ExitButton.clicked.connect(run_Exit)
-        grid_t5.addWidget(ExitButton, 6, 4, 1, 1)
+        #grid_t5.addWidget(ExitButton, 6, 4, 1, 1)
         
         #global Progress_t5
         #Progress_t5 = QProgressBar(self)
@@ -954,20 +954,20 @@ class NIHTSWidget(QWidget):
         DesLMIYPos.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
         CurrLMIXPosEdit = QSpinBox(self)
-        CurrLMIXPosEdit.setMaximum(1025)
+        CurrLMIXPosEdit.setMaximum(3000)
         CurrLMIXPosEdit.setValue(100)
         CurrLMIXPosEdit.valueChanged.connect(self.CurrXPosChanged)
         CurrLMIYPosEdit = QSpinBox(self)
-        CurrLMIYPosEdit.setMaximum(1025)
+        CurrLMIYPosEdit.setMaximum(3000)
         CurrLMIYPosEdit.setValue(100)
         CurrLMIYPosEdit.valueChanged.connect(self.CurrYPosChanged)
         
         DesLMIXPosEdit = QSpinBox(self)
-        DesLMIXPosEdit.setMaximum(1025)
+        DesLMIXPosEdit.setMaximum(3000)
         DesLMIXPosEdit.setValue(100)
         DesLMIXPosEdit.valueChanged.connect(self.DesXPosChanged)
         DesLMIYPosEdit = QSpinBox(self)
-        DesLMIYPosEdit.setMaximum(1025)
+        DesLMIYPosEdit.setMaximum(3000)
         DesLMIYPosEdit.setValue(100)
         DesLMIYPosEdit.valueChanged.connect(self.DesYPosChanged)
         
@@ -1007,7 +1007,7 @@ class NIHTSWidget(QWidget):
         
         ExitButton = QPushButton("Exit")
         ExitButton.clicked.connect(run_Exit)
-        grid_t6.addWidget(ExitButton, 7, 4, 1, 1)
+        #grid_t6.addWidget(ExitButton, 7, 4, 1, 1)
         
         self.tab6.setLayout(grid_t6)
         
@@ -1017,11 +1017,9 @@ class NIHTSWidget(QWidget):
         grid_t7 = QGridLayout()
         grid_t7.setSpacing(10)
 
-        ShutdownLabel = QLabel('NIHTS Shutdown')
+        ShutdownLabel = QLabel('* Shutdown the NIHTS Camera at the End of your Observing Run *')
         ShutdownLabel.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
-        ShutdownLabel2 = QLabel('* Shutdown the NIHTS Camera at the End of your Observing Run *')
-        ShutdownLabel2.setAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
-        ShutdownButton = QPushButton("Shutdown")
+        ShutdownButton = QPushButton("NIHTS Shutdown")
         ShutdownButton.clicked.connect(run_NIHTS_Shutdown)
         CheckBox_Comm = QCheckBox("Command Line")
         CheckBox_Comm.stateChanged.connect(run_toggleCommandLine)
@@ -1032,7 +1030,6 @@ class NIHTSWidget(QWidget):
         
         grid_t7.addWidget(ShutdownLabel, 1, 1, 1, 5)
         grid_t7.addWidget(ShutdownButton, 2, 3, 1, 1)
-        grid_t7.addWidget(ShutdownLabel2, 3, 1, 1, 5)
         grid_t7.addWidget(CheckBox_Comm, 5, 1, 1, 1)
         
         self.tab7.setLayout(grid_t7)
