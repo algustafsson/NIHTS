@@ -3141,7 +3141,7 @@ class NIHTSWidget(QWidget):
             N_pixscale = 0.326 #XCAM Pixel Scale
             
             offset_y_pix = np.divide(offset_x, 0.326) #East is UP on XCAM so x offset on LMI is y offset on XCAM
-            offset_x_pix = np.divide(-offset_y, 0.326) #North is RIGHT on XCAM so y offset on LMI is x offset on XCAM
+            offset_x_pix = np.divide(offset_y, 0.326) #North is RIGHT on XCAM so y offset on LMI is x offset on XCAM
 
             logging.info('Apply the LMI offset %.2f arcsec East and %.2f arcsec South' %(offset_x, offset_y))
             
