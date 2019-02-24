@@ -628,7 +628,7 @@ class NIHTSWidget(QWidget):
         
         TargetCurrent.append('test')
         NExpTimeCurrent.append(1)
-        GuidingCurrent.append(0)
+        GuidingCurrent.append(1)
         NnseqCurrent.append(1)
         OffsetCurrent.append(20)
         DirCurrent.append(0)
@@ -2610,7 +2610,11 @@ class NIHTSWidget(QWidget):
             for i in range(nseq):
                 seq = i+1
                 print('STARTING AB SEQUENCE %d/%d' %(seq,nseq))
-    
+                
+                print(gdr_str)
+                if gdr_str == 1:
+                    print('True')
+              
                 nihts.wait4nihts()
                 if gdr_str == 1:
                     print('GUIDING True')
