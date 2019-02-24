@@ -2613,8 +2613,10 @@ class NIHTSWidget(QWidget):
     
                 nihts.wait4nihts()
                 if gdr_str == 1:
+                    print('GUIDING True')
                     tcs.wait4(True)
                 elif gdr_str == 0:
+                    print('GUIDING False')
                     pass
     
                 #x.go(x_exptime,x_coadds,1,return_images=False)
