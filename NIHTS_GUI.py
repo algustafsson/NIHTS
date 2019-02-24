@@ -2467,9 +2467,9 @@ class NIHTSWidget(QWidget):
         slitposition = ['A', 'B', 'cen']
         slit_pos = slitposition[curr_slitpos]
     
-        if gdr_str == 1:
+        if int(gdr_str) == 1:
             tcs.wait4(True)
-        elif gdr_str == 0:
+        elif int(gdr_str) == 0:
             pass
         
         print('NIHTS Test Exposure:')
@@ -2530,9 +2530,9 @@ class NIHTSWidget(QWidget):
             seq = i+1
             print('STARTING NIHTS SEQUENCE %d/%d' %(seq,nseq))
             
-            if gdr_str == 1:
+            if int(gdr_str) == 1:
                 tcs.wait4(True)
-            elif gdr_str == 0:
+            elif int(gdr_str) == 0:
                 pass
         
             nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object', comment1='Slit:'+slit+', Position:'+slit_pos, aborterror=False)
@@ -2612,14 +2612,14 @@ class NIHTSWidget(QWidget):
                 print('STARTING AB SEQUENCE %d/%d' %(seq,nseq))
                 
                 print(gdr_str)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     print('True')
               
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     print('GUIDING True')
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     print('GUIDING False')
                     pass
     
@@ -2630,9 +2630,9 @@ class NIHTSWidget(QWidget):
                 # wait for exposure
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
         
                 #
@@ -2640,9 +2640,9 @@ class NIHTSWidget(QWidget):
                 #
                 tcs.move_to_slit_position(tcs.slits[slit]['B'])
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
 
                 #x.go(x_exptime,x_coadds,1,return_images=False)
@@ -2652,9 +2652,9 @@ class NIHTSWidget(QWidget):
                 # wait for both exposures to complete plus readout in between
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
     
                 #
@@ -2662,9 +2662,9 @@ class NIHTSWidget(QWidget):
                 #
                 tcs.move_to_slit_position(tcs.slits[slit]['A'])
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
 
                 x.go(x_exptime,x_coadds,1,return_images=False)
@@ -2754,9 +2754,9 @@ class NIHTSWidget(QWidget):
                 print('STARTING ABBA SEQUENCE %d/%d' %(seq,nseq))
         
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
     
                 #x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
@@ -2766,9 +2766,9 @@ class NIHTSWidget(QWidget):
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
 
                 #
@@ -2776,9 +2776,9 @@ class NIHTSWidget(QWidget):
                 #
                 tcs.move_to_slit_position(tcs.slits[slit]['B'])
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
         
                 #x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
@@ -2788,9 +2788,9 @@ class NIHTSWidget(QWidget):
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1, return_images=False, save_every_Nth_to_currentfits=save_n)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
         
                 #
@@ -2799,9 +2799,9 @@ class NIHTSWidget(QWidget):
                 tcs.move_to_slit_position(tcs.slits[slit]['A'])
                 # wait for telescope to move
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
 
                 #x.go(x_exptime,x_coadds,1,return_images=False, save_every_Nth_to_currentfits=save_n)
@@ -2811,9 +2811,9 @@ class NIHTSWidget(QWidget):
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
         
                 #completed = np.divide(100,nseq)*(i+1)
@@ -2986,9 +2986,9 @@ class NIHTSWidget(QWidget):
                 print('STARTING Cen-Off SEQUENCE %d/%d' %(seq,nseq))
                 
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
                 
                 #x.go(x_exptime,x_coadds,1,return_images=False)
@@ -2998,9 +2998,9 @@ class NIHTSWidget(QWidget):
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
                 
                 #
@@ -3030,9 +3030,9 @@ class NIHTSWidget(QWidget):
                     tcs.move_object_on_xcam(tcs.current_target_pt, tcs.current_target_pt + wx.RealPoint(0,-offset))
                 
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
                 
                 #x.go(x_exptime,x_coadds,1,return_images=False)
@@ -3042,9 +3042,9 @@ class NIHTSWidget(QWidget):
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
                 
                 #
@@ -3076,9 +3076,9 @@ class NIHTSWidget(QWidget):
                 
                 # wait for telescope to move
                 nihts.wait4nihts()
-                if gdr_str == 1:
+                if int(gdr_str) == 1:
                     tcs.wait4(True)
-                elif gdr_str == 0:
+                elif int(gdr_str) == 0:
                     pass
             
                 x.go(x_exptime,x_coadds,1,return_images=False)
