@@ -628,7 +628,7 @@ class NIHTSWidget(QWidget):
         
         TargetCurrent.append('test')
         NExpTimeCurrent.append(1)
-        GuidingCurrent.append(1)
+        GuidingCurrent.append(0)
         NnseqCurrent.append(1)
         OffsetCurrent.append(20)
         DirCurrent.append(0)
