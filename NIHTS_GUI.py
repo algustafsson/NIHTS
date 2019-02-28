@@ -2730,7 +2730,8 @@ class NIHTSWidget(QWidget):
                 - add save_n
                 - Guiding -- TEST
                 """
-    
+            import time
+            
             # Define argument names
             targetname = current_target
             curr_slit = int(current_slit)
