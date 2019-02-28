@@ -2757,7 +2757,7 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(25)
+                    time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
     
@@ -2780,7 +2780,7 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(25)
+                    time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
@@ -2805,7 +2805,7 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(25)
+                    time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
 
