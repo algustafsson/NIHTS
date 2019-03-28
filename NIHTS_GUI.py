@@ -2577,11 +2577,11 @@ class NIHTSWidget(QWidget):
             # NIHTS_AB_v4
             ##
             """ NIHTS AB - Performs 1 AB sequence of images.
-                v1.4: 2018-04-12, ag765@nau.edu, A Gustafsson
+                v1.5: 2019-03-28, ag765@nau.edu, A Gustafsson
                 
                 AB Nod Script from position A on slit and returning to A. Adds ZTV looped images. Inputs frame type and slit position into headers. Added guider status. Added for guiding on/off.
                 
-                ** GUI Version - Needs Testing
+                ** GUI Version
                 
                 To use, enter on the command line in the ipython environment:
                 run -i NIHTS_AB.py target slit n_exptime x_exptime nseq gdr
@@ -2589,7 +2589,7 @@ class NIHTSWidget(QWidget):
                 uses the editted version of nihts.go
                 
                 updates:
-                - GUIDING - TEST
+                - GUIDING on target needs 45 sec wait statement
                 """
     
             # Define argument names
@@ -2617,10 +2617,9 @@ class NIHTSWidget(QWidget):
               
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
-                    print('GUIDING True')
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    print('GUIDING False')
                     pass
     
                 #x.go(x_exptime,x_coadds,1,return_images=False)
@@ -2639,21 +2638,26 @@ class NIHTSWidget(QWidget):
                 # move target to slit position B
                 #
                 tcs.move_to_slit_position(tcs.slits[slit]['B'])
+                
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
-
-                #x.go(x_exptime,x_coadds,1,return_images=False)
+                
+                time.sleep(5) #wait for TCS to get accurate timestamps
     
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:B', aborterror=False)
                 # wait for both exposures to complete plus readout in between
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
+                
+                nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
     
@@ -2661,12 +2665,16 @@ class NIHTSWidget(QWidget):
                 # move target to slit position A
                 #
                 tcs.move_to_slit_position(tcs.slits[slit]['A'])
+                
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
 
+                time.sleep(5) #wait for TCS to get accurate timestamps
+                
                 x.go(x_exptime,x_coadds,1,return_images=False)
         
                 #completed = np.divide(100,nseq)*(i+1)
@@ -2712,14 +2720,12 @@ class NIHTSWidget(QWidget):
             logging.info('AB Parameters: %s: %s second(s): %s sequence(s): GDR %s' %(current_target, current_nexptime, current_nnseq, current_guiding))
            
             ##
-            # NIHTS_ABBA_v10.py
+            # NIHTS_ABBA_v11.py
             ##
             """ NIHTS ABBA - Performs ABBA sequence of images.
-                v1.10: 2018-04-12, ag765@nau.edu, A Gustafsson
+                v1.11: 2019-03-28, ag765@nau.edu, A Gustafsson
                 
                 ABBA Nod Script from position A on slit and returning to A. Adds ZTV looped images. Inputs frame type and slit position into headers. Added guider status. Added for guiding on/off. Save every Nth image enabled for xcam.
-                
-                ** GUI Version - Needs Testing
                 
                 To use, enter on the command line in the ipython environment:
                 run -i NIHTS_ABBA.py target slit n_exptime opt(-nseq) opt(-x_exptime) opt(-save_n) opt(-gdr_str)
@@ -2728,7 +2734,7 @@ class NIHTSWidget(QWidget):
                 
                 updates:
                 - add save_n
-                - Guiding -- TEST
+                - Guiding on target needs 45 second wait statement
                 """
             import time
             
@@ -2757,19 +2763,19 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(45)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
-    
-                #x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
-        
+            
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:A', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
+                nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
 
@@ -2780,20 +2786,21 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(45)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
-                time.sleep(2)
-                #x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
-        
+                time.sleep(5) #wait for TCS to get accurate timestamps
+                        
                 # take 2 exposures
                 nihts.go(nexp=2, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:B', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1, return_images=False, save_every_Nth_to_currentfits=save_n)
+                nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
         
@@ -2805,11 +2812,11 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
-                    time.sleep(45)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
-
-                #x.go(x_exptime,x_coadds,1,return_images=False, save_every_Nth_to_currentfits=save_n)
+                
+                time.sleep(5) #wait for TCS to get accurate timestamps
         
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:A', aborterror=False)
@@ -2842,10 +2849,13 @@ class NIHTSWidget(QWidget):
 
         current_offset = str(OffsetCurrent[-1])
         current_direction = str(DirCurrent[-1])
+        
+        direction = ['UP','DOWN','LEFT','RIGHT','RA','DEC']
+        current_dir = direction[int(current_direction)]
 
         logging.info('Offset Requested')
         infoBox = QMessageBox()
-        infoBox.setText("Would you like to offset the telescope %s arcseconds %s?" %(current_offset, current_direction))
+        infoBox.setText("Would you like to offset the telescope %s arcseconds %s?" %(current_offset, current_dir))
         infoBox.setWindowTitle("Target Offset")
         infoBox.setStandardButtons(QMessageBox.Yes| QMessageBox.No)
         infoBox.setEscapeButton(QMessageBox.Close)
@@ -2853,7 +2863,7 @@ class NIHTSWidget(QWidget):
         if result == QMessageBox.Yes:
             print('Yes- Move Telescope')
             logging.info('NIHTS Offset Begin...')
-            logging.info('Offset Parameters: %s arcseconds: %s' %(current_offset, current_direction))
+            logging.info('Offset Parameters: %s arcseconds: %s' %(current_offset, current_dir))
             
             ##
             # NIHTS_Offset
@@ -2866,7 +2876,7 @@ class NIHTSWidget(QWidget):
                 uses the editted version of nihts.go
                 
                 updates:
-                -
+                - Need to switch direction so that it is direction of telescope, not object which is requested
                 """
                 
             # define arguments
@@ -2949,11 +2959,11 @@ class NIHTSWidget(QWidget):
             # NIHTS_CenSky_v3
             ##
             """ NIHTS CenSky - Performs Cen - Off slit sequence of images.
-                v1.3: 2018-05-14, ag765@nau.edu, A Gustafsson
+                v1.4: 2019-03-28, ag765@nau.edu, A Gustafsson
                 
                 Cen-Sky Slit Nod Script from position Cen on slit and returning to Cen. CS-CS-CS-etc... Adds ZTV looped images. Inputs frame type and slit position into headers. Added guiding status yes/no. Option for up/down/left/right or RA/DEC offsets
                 
-                ** GUI Version - Needs testing
+                ** GUI Version
                 
                 To use, enter on the command line in the ipython environment:
                 run -i NIHTS_CenSky.py target slit n_exptime opt(-nseq) opt(-x_exptime) opt(-direction) opt(-offset) opt(-gdr)
@@ -2961,7 +2971,7 @@ class NIHTSWidget(QWidget):
                 uses the editted version of nihts.go
                 
                 updates:
-                - guiding -- TEST
+                - guiding on target needs 45 sec wait statement
                 """
             
             # define arguments
@@ -2993,18 +3003,19 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
-                
-                #x.go(x_exptime,x_coadds,1,return_images=False)
-                
+                                
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:Cen', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
+                nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
@@ -3037,18 +3048,21 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
-                #x.go(x_exptime,x_coadds,1,return_images=False)
-                
+                time.sleep(5) #wait for TCS to get accurate timestamps
+                                
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit: None, Position:Cen', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False)
+                nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
@@ -3083,8 +3097,11 @@ class NIHTSWidget(QWidget):
                 nihts.wait4nihts()
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
+                
+                time.sleep(5) #wait for TCS to get accurate timestamps
             
                 x.go(x_exptime,x_coadds,1,return_images=False)
             
