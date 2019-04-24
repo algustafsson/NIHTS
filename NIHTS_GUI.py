@@ -2591,7 +2591,9 @@ class NIHTSWidget(QWidget):
                 updates:
                 - GUIDING on target needs 45 sec wait statement
                 """
-    
+            
+            import time 
+            
             # Define argument names
             targetname = current_target
             curr_slit = int(current_slit)
@@ -2844,14 +2846,14 @@ class NIHTSWidget(QWidget):
     
     
     def run_NIHTS_Offset(self):
-        print('Offset', str(OffsetCurrent[-1]))
-        print('Direction', str(DirCurrent[-1]))
-
         current_offset = str(OffsetCurrent[-1])
         current_direction = str(DirCurrent[-1])
         
         direction = ['UP','DOWN','LEFT','RIGHT','RA','DEC']
         current_dir = direction[int(current_direction)]
+        
+        print('Offset', current_offset)
+        print('Direction', current_dir)
 
         logging.info('Offset Requested')
         infoBox = QMessageBox()
@@ -2883,7 +2885,7 @@ class NIHTSWidget(QWidget):
             offset = float(current_offset)
             direction = int(current_direction)
                 
-            if direction != 4 and direction != 5:
+            if direction != 4 and direction != 5: # RA and DEC
                 offset = np.divide(offset,0.326)
             else:
                 pass
@@ -2988,7 +2990,7 @@ class NIHTSWidget(QWidget):
             slitnames = ['sed1', '1.34', '0.81', '0.27', '0.54', '1.07', '1.61', 'sed2']
             slit = slitnames[curr_slit]
             
-            if direction != 4 and direction != 5:
+            if direction != 4 and direction != 5: #RA and DEC
                 offset = np.divide(offset,0.326)
             else:
                 pass
