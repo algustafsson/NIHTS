@@ -2976,6 +2976,8 @@ class NIHTSWidget(QWidget):
                 - guiding on target needs 45 sec wait statement
                 """
             
+            import time
+            
             # define arguments
             targetname = current_target
             curr_slit = int(current_slit)
@@ -3054,7 +3056,7 @@ class NIHTSWidget(QWidget):
                 elif int(gdr_str) == 0:
                     pass
                 
-                time.sleep(5) #wait for TCS to get accurate timestamps
+                #time.sleep(5) #wait for TCS to get accurate timestamps
                                 
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit: None, Position:Cen', aborterror=False)
@@ -3103,7 +3105,7 @@ class NIHTSWidget(QWidget):
                 elif int(gdr_str) == 0:
                     pass
                 
-                time.sleep(5) #wait for TCS to get accurate timestamps
+                #time.sleep(5) #wait for TCS to get accurate timestamps
             
                 x.go(x_exptime,x_coadds,1,return_images=False)
             
