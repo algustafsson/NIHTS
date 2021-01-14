@@ -71,8 +71,10 @@ x = XenicsCamera()
 x.set_gain(False)
 x.go(1.0, 1, 1, return_images=False)
 from xenics import TCS
+from xenics import AOS #Added by AG 01/14/21
 from xenics import NIHTS
 tcs = TCS()
+aos = AOS()  #Added by AG 01/14/21
 nihts = NIHTS()
 
 ###############################################
@@ -2762,62 +2764,94 @@ class NIHTSWidget(QWidget):
                 seq = i+1
                 print('STARTING ABBA SEQUENCE %d/%d' %(seq,nseq))
         
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
                 nihts.wait4nihts()
+                
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
             
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:A', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1,return_images=False,save_every_Nth_to_currentfits=save_n)
+                
                 nihts.wait4nihts()
-                if int(gdr_str) == 1:
-                    tcs.wait4(True)
-                    time.sleep(5) #time.sleep(45)
-                elif int(gdr_str) == 0:
-                    pass
-
-                #
-                # move target to slit position B
-                #
-                tcs.move_to_slit_position(tcs.slits[slit]['B'])
-                nihts.wait4nihts()
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
-                time.sleep(5) #wait for TCS to get accurate timestamps
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+
+                #
+                # move target to slit position B
+                #
+                tcs.move_to_slit_position(tcs.slits[slit]['B'])
+                
+                nihts.wait4nihts()
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                
+                if int(gdr_str) == 1:
+                    tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
+                elif int(gdr_str) == 0:
+                    pass
+                
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                time.sleep(5) #NM added 01/13/21 wait for TCS to get accurate timestamps
                         
                 # take 2 exposures
                 nihts.go(nexp=2, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:B', aborterror=False)
                 # take ZTV images while waiting for nihts
                 while nihts.isNIHTSready() == False:
                     x.go(x_exptime,x_coadds,1, return_images=False, save_every_Nth_to_currentfits=save_n)
+                
                 nihts.wait4nihts()
-                if int(gdr_str) == 1:
-                    tcs.wait4(True)
-                    time.sleep(5) #time.sleep(45)
-                elif int(gdr_str) == 0:
-                    pass
-        
-                #
-                # move back to position A
-                #
-                tcs.move_to_slit_position(tcs.slits[slit]['A'])
-                # wait for telescope to move
-                nihts.wait4nihts()
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
                     pass
                 
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+        
+                #
+                # move back to position A
+                #
+                tcs.move_to_slit_position(tcs.slits[slit]['A'])
+                # wait for telescope to move
+                
+                nihts.wait4nihts()
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
+                
+                if int(gdr_str) == 1:
+                    tcs.wait4(True)
+                    time.sleep(5) #time.sleep(45)
+                elif int(gdr_str) == 0:
+                    pass
+                
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
                 time.sleep(5) #wait for TCS to get accurate timestamps
         
                 # take 1 exposure
@@ -2829,6 +2863,9 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                 elif int(gdr_str) == 0:
                     pass
+                
+                tcs.wait4(True) #Added by AG 01/14/21
+                aos.wait4(True) #Added by AG 01/14/21
         
                 #completed = np.divide(100,nseq)*(i+1)
                 #Progress_t5.setValue(completed)
