@@ -2815,7 +2815,7 @@ class NIHTSWidget(QWidget):
                     x.go(x_exptime,x_coadds,1, return_images=False, save_every_Nth_to_currentfits=save_n)
                 
                 nihts.wait4nihts()
-                tcs.wait4(True) #Added by AG 01/14/21
+                #tcs.wait4(True) #Added by AG 01/14/21
                 #aos.wait4(True) #Added by AG 01/14/21
                 
                 if int(gdr_str) == 1:
