@@ -71,10 +71,10 @@ x = XenicsCamera()
 x.set_gain(False)
 x.go(1.0, 1, 1, return_images=False)
 from xenics import TCS
-from xenics import AOS #Added by AG 01/14/21
+#from xenics import AOS #Added by AG 01/14/21
 from xenics import NIHTS
 tcs = TCS()
-aos = AOS()  #Added by AG 01/14/21
+#aos = AOS()  #Added by AG 01/14/21
 nihts = NIHTS()
 
 ###############################################
@@ -2765,7 +2765,7 @@ class NIHTSWidget(QWidget):
                 print('STARTING ABBA SEQUENCE %d/%d' %(seq,nseq))
         
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 nihts.wait4nihts()
                 
                 if int(gdr_str) == 1:
@@ -2775,7 +2775,7 @@ class NIHTSWidget(QWidget):
                     pass
             
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:A', aborterror=False)
@@ -2785,7 +2785,7 @@ class NIHTSWidget(QWidget):
                 
                 nihts.wait4nihts()
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
@@ -2794,7 +2794,7 @@ class NIHTSWidget(QWidget):
                     pass
                 
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
 
                 #
                 # move target to slit position B
@@ -2803,7 +2803,7 @@ class NIHTSWidget(QWidget):
                 
                 nihts.wait4nihts()
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
@@ -2812,7 +2812,7 @@ class NIHTSWidget(QWidget):
                     pass
                 
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 time.sleep(5) #NM added 01/13/21 wait for TCS to get accurate timestamps
                         
                 # take 2 exposures
@@ -2823,7 +2823,7 @@ class NIHTSWidget(QWidget):
                 
                 nihts.wait4nihts()
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
@@ -2832,7 +2832,7 @@ class NIHTSWidget(QWidget):
                     pass
                 
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
         
                 #
                 # move back to position A
@@ -2842,7 +2842,7 @@ class NIHTSWidget(QWidget):
                 
                 nihts.wait4nihts()
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
@@ -2851,7 +2851,7 @@ class NIHTSWidget(QWidget):
                     pass
                 
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
                 time.sleep(5) #wait for TCS to get accurate timestamps
         
                 # take 1 exposure
@@ -2865,7 +2865,7 @@ class NIHTSWidget(QWidget):
                     pass
                 
                 tcs.wait4(True) #Added by AG 01/14/21
-                aos.wait4(True) #Added by AG 01/14/21
+                #aos.wait4(True) #Added by AG 01/14/21
         
                 #completed = np.divide(100,nseq)*(i+1)
                 #Progress_t5.setValue(completed)
