@@ -2472,7 +2472,8 @@ class NIHTSWidget(QWidget):
         if int(gdr_str) == 1:
             tcs.wait4(True)
         elif int(gdr_str) == 0:
-            pass
+            tcs.wait4(False) #Added by AG 01/14/21
+
         
         print('NIHTS Test Exposure:')
         nihts.go(nexp=1, exptime=n_exptime, target='TEST', frame_type='object',  comment1 = 'Slit:'+slit+', Position:'+slit_pos, aborterror=False)
@@ -2535,7 +2536,8 @@ class NIHTSWidget(QWidget):
             if int(gdr_str) == 1:
                 tcs.wait4(True)
             elif int(gdr_str) == 0:
-                pass
+                tcs.wait4(False) #Added by AG 01/14/21
+
         
             nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object', comment1='Slit:'+slit+', Position:'+slit_pos, aborterror=False)
             # take ZTV images while waiting for nihts
@@ -2624,7 +2626,7 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
     
                 #x.go(x_exptime,x_coadds,1,return_images=False)
         
@@ -2636,7 +2638,8 @@ class NIHTSWidget(QWidget):
                 if int(gdr_str) == 1:
                     tcs.wait4(True)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
         
                 #
                 # move target to slit position B
@@ -2648,7 +2651,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
                 
                 time.sleep(5) #wait for TCS to get accurate timestamps
     
@@ -2663,7 +2667,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
     
                 #
                 # move target to slit position A
@@ -2675,7 +2680,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
 
                 time.sleep(5) #wait for TCS to get accurate timestamps
                 
@@ -3040,7 +3046,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
                                 
                 # take 1 exposure
                 nihts.go(nexp=1, exptime=n_exptime, target=targetname, frame_type='object',  comment1 = 'Slit:'+slit+', Position:Cen', aborterror=False)
@@ -3052,8 +3059,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
-                
+                    tcs.wait4(False) #Added by AG 01/14/21
+                    
                 #
                 # move target to off slit position
                 #
@@ -3085,7 +3092,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
                 
                 #time.sleep(5) #wait for TCS to get accurate timestamps
                                 
@@ -3099,7 +3107,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
                 
                 #
                 # move back to position Cen
@@ -3134,7 +3143,8 @@ class NIHTSWidget(QWidget):
                     tcs.wait4(True)
                     time.sleep(5) #time.sleep(45)
                 elif int(gdr_str) == 0:
-                    pass
+                    tcs.wait4(False) #Added by AG 01/14/21
+
                 
                 #time.sleep(5) #wait for TCS to get accurate timestamps
             
